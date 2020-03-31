@@ -1,0 +1,27 @@
+version: '3'
+
+services:
+  ideasymbols-db:
+    image: postgres:10-alpine
+    container_name: ideasymbols-db
+    ports:
+      - 61432:5432
+    env_file:
+      - ../.storage.env
+    volumes:
+      - ../sql/order_storage.sql:/docker-entrypoint-initdb.d/1-init.sql
+
+  ideasymbols-http:
+    image: ideasymbols-http
+    container_name: ideasymbols-http
+    build:
+      context: ..
+      dockerfile: Dockerfile
+    command: "./http_service"
+    env_file:
+      - ../.http-server.env
+      - ../.storage.env
+    ports:
+      - 1234:1234
+    depends_on:
+      - ideasymbols-db

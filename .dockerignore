@@ -1,0 +1,11 @@
+**/.git
+**/.idea
+**/.vscode
+**/.DS_Store
+
+**/*.env
+**/configs
+**/deployments
+**/Dockerfile
+**/docker-compose.yaml
+**/http_service
